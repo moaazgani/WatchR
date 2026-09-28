@@ -1,10 +1,10 @@
 import Navbar from './components/Navbar'
-import Home from './components/Home'
-import Notification from './components/Notification'
-import Search from './components/Search'
-import Chat from './components/Chat'
-import History from './components/History'
-import Room from './components/Room'
+import Home from './pages/Home'
+import Notification from './pages/Notification'
+import Search from './pages/Search'
+import Chat from './pages/Chat'
+import History from './pages/History'
+import Room from './pages/Room'
 import Footer from './components/Footer'
 
 function App() {
