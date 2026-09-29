@@ -1,3 +1,4 @@
+import ChatMessage from '../components/ChatMessage'
 import { useEffect, useRef, useState } from 'react'
 import {
 	Check,
@@ -210,13 +211,7 @@ function Room() {
 							<p className="mt-0.5 truncate text-xs text-neutral-400">{videoName}</p>
 						</div>
 						{messages.map((chatMessage, index) => (
-							<div className={`flex gap-2 ${chatMessage.own ? 'flex-row-reverse' : ''}`} key={`${chatMessage.name}-${index}`}>
-								<img className="mt-0.5 h-6 w-6 shrink-0 rounded-lg border border-neutral-800 object-cover" src={`https://i.pravatar.cc/48?u=${chatMessage.name}`} alt="" />
-								<div className={`min-w-0 max-w-[88%] ${chatMessage.own ? 'text-right' : ''}`}>
-									<div className={`mb-1 flex items-center gap-2 text-[9px] text-neutral-600 ${chatMessage.own ? 'justify-end' : ''}`}><span className="font-semibold text-neutral-300">@{chatMessage.name.toLowerCase()}</span><time>{chatMessage.time}</time></div>
-									<p className={`text-[10px] leading-relaxed ${chatMessage.own ? 'inline-block rounded-lg bg-neutral-800 px-2.5 py-2 text-left text-white' : 'text-neutral-300'}`}>{chatMessage.text}</p>
-								</div>
-							</div>
+							<ChatMessage chatMessage={chatMessage} key={`${chatMessage.name}-${index}`} />
 						))}
 					</div>
 					<div className="shrink-0 px-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-2.5 lg:pb-2.5">
