@@ -2,7 +2,7 @@ import HistoryCard from '../components/HistoryCard'
 
 import {
 	History as HistoryIcon,
-	 MessageSquareText,
+	MessageSquareText,
 	RotateCcw,
 	Search,
 	X,
