@@ -1,4 +1,5 @@
 import ConversationList from '../components/ConversationList'
+import MessageBubble from '../components/MessageBubble'
 
 import {
 	Camera,
@@ -7,11 +8,33 @@ import {
 	Info,
 	Mic,
 	Phone,
-	Play,
 	Send,
 	Smile,
 	Video,
 } from 'lucide-react'
+
+const messages = [
+	{
+		sender: 'them',
+		text: "Hey! Are you joining the Nolan marathon in 10 mins?",
+		reaction: '💗 2',
+	},
+	{
+		sender: 'me',
+		text: "Yes absolutely! Just grabbing snacks. Which stream are we using?",
+		status: 'Seen 10:42 PM',
+	},
+	{
+		sender: 'them',
+		text: "Great! Room 402 is locked in. Here's the timestamp cue we agreed on.",
+		video: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=85',
+	},
+	{
+		sender: 'me',
+		text: "Awesome, see you in there!",
+		status: 'Delivered',
+	},
+]
 
 function Chat() {
 	return (
@@ -33,28 +56,9 @@ function Chat() {
 
 				<div className="min-h-0 flex-1 space-y-5 overflow-y-auto overscroll-contain px-4 py-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:px-8 lg:px-14">
 					<div className="flex justify-center"><span className="rounded-full bg-neutral-900 px-3 py-1 text-[9px] font-medium text-neutral-500">TODAY</span></div>
-					<div className="flex items-end gap-2">
-						<img className="h-6 w-6 rounded-full object-cover" src="https://i.pravatar.cc/60?img=49" alt="" />
-						<div><div className="rounded-2xl rounded-bl-sm bg-neutral-900 px-4 py-3 text-xs text-neutral-200">Hey! Are you joining the Nolan marathon in 10 mins?</div><span className="mt-1 inline-block rounded-full bg-neutral-800 px-2 py-0.5 text-[9px] text-neutral-400">💗 2</span></div>
-					</div>
-					<div className="flex justify-end"><div className="max-w-[80%] rounded-2xl rounded-br-sm bg-white px-4 py-3 text-xs text-black sm:max-w-[58%]">Yes absolutely! Just grabbing snacks. Which stream are we using?<span className="mt-2 block text-right text-[9px] text-neutral-500">Seen 10:42 PM</span></div></div>
-					<div className="flex items-end gap-2">
-						<img className="h-6 w-6 rounded-full object-cover" src="https://i.pravatar.cc/60?img=49" alt="" />
-						<div className="max-w-[88%] rounded-2xl rounded-bl-sm bg-neutral-900 p-3 sm:max-w-[58%]">
-							<p className="mb-3 text-xs text-neutral-200">Great! Room 402 is locked in. Here's the timestamp cue we agreed on.</p>
-							<div className="relative overflow-hidden rounded-xl border border-neutral-700 bg-black">
-								<img className="aspect-video w-full object-cover" src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=85" alt="Shared watch room preview" />
-									<span className="absolute inset-0 grid place-items-center">
-										<span className="grid h-10 w-10 place-items-center rounded-full bg-white text-black"><Play className="ml-0.5 h-4 w-4 fill-current" />
-										</span>
-									</span>
-									<span className="absolute bottom-2 left-2 text-[8px] text-neutral-400">WatchR · Messages</span>
-							</div> 
-						</div>
-					</div>
-					<div className="flex justify-end"><div className="rounded-2xl rounded-br-sm bg-white px-4 py-3 text-xs text-black">Awesome, see you in there!<span className="mt-2 block text-right text-[9px] text-neutral-500">Delivered</span></div></div>
+					{messages.map((message, index) => <MessageBubble message={message} key={index} />)}
 				</div>
-
+				
 				<form className="flex min-h-16 shrink-0 items-center gap-3 px-4 py-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:px-6 md:pb-3" onSubmit={(event) => event.preventDefault()}>
 					<button className="text-neutral-400 hover:text-white" type="button" aria-label="Take photo"><Camera className="h-4 w-4" /></button>
 					<button className="text-neutral-400 hover:text-white" type="button" aria-label="Record voice message"><Mic className="h-4 w-4" /></button>
