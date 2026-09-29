@@ -1,3 +1,4 @@
+import { useState, useRef, useEffect } from 'react'
 import ConversationList from '../components/ConversationList'
 import MessageBubble from '../components/MessageBubble'
 
@@ -13,30 +14,32 @@ import {
 	Video,
 } from 'lucide-react'
 
-const messages = [
-	{
-		sender: 'them',
-		text: "Hey! Are you joining the Nolan marathon in 10 mins?",
-		reaction: '💗 2',
-	},
-	{
-		sender: 'me',
-		text: "Yes absolutely! Just grabbing snacks. Which stream are we using?",
-		status: 'Seen 10:42 PM',
-	},
-	{
-		sender: 'them',
-		text: "Great! Room 402 is locked in. Here's the timestamp cue we agreed on.",
-		video: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=85',
-	},
-	{
-		sender: 'me',
-		text: "Awesome, see you in there!",
-		status: 'Delivered',
-	},
+const initialMessages = [
+	{ sender: 'them', text: "Hey! Are you joining the Nolan marathon in 10 mins?", reaction: '💗 2' },
+	{ sender: 'me', text: "Yes absolutely! Just grabbing snacks. Which stream are we using?", status: 'Seen 10:42 PM' },
+	{ sender: 'them', text: "Great! Room 402 is locked in. Here's the timestamp cue we agreed on.", video: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=85' },
+	{ sender: 'me', text: "Awesome, see you in there!", status: 'Delivered' },
 ]
 
 function Chat() {
+	const [messages, setMessages] = useState(initialMessages)
+	const [messageText, setMessageText] = useState('')
+
+	function sendMessage(event) {
+		event.preventDefault()
+		const text = messageText.trim()
+		if (!text) return
+		setMessages((current) => [...current, { sender: 'me', text, status: 'Sent' }])
+		setMessageText('')
+	}
+
+	const messageListRef = useRef(null)
+
+	useEffect(() => {
+		const messageList = messageListRef.current
+		if (messageList) messageList.scrollTop = messageList.scrollHeight
+	}, [messages])
+
 	return (
 		<main className="flex h-[calc(100dvh-8.25rem-env(safe-area-inset-bottom))] w-full overflow-hidden bg-[#0b0b0b] md:h-[calc(100dvh-4rem)]">
 			<ConversationList />
@@ -54,16 +57,19 @@ function Chat() {
 					</div>
 				</header>
 
-				<div className="min-h-0 flex-1 space-y-5 overflow-y-auto overscroll-contain px-4 py-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:px-8 lg:px-14">
+				<div ref={messageListRef} className="min-h-0 flex-1 space-y-5 overflow-y-auto overscroll-contain px-4 py-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:px-8 lg:px-14">
 					<div className="flex justify-center"><span className="rounded-full bg-neutral-900 px-3 py-1 text-[9px] font-medium text-neutral-500">TODAY</span></div>
 					{messages.map((message, index) => <MessageBubble message={message} key={index} />)}
 				</div>
-				
-				<form className="flex min-h-16 shrink-0 items-center gap-3 px-4 py-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:px-6 md:pb-3" onSubmit={(event) => event.preventDefault()}>
+
+				<form className="flex min-h-16 shrink-0 items-center gap-3 px-4 py-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:px-6 md:pb-3" onSubmit={sendMessage}>
 					<button className="text-neutral-400 hover:text-white" type="button" aria-label="Take photo"><Camera className="h-4 w-4" /></button>
 					<button className="text-neutral-400 hover:text-white" type="button" aria-label="Record voice message"><Mic className="h-4 w-4" /></button>
 					<button className="text-neutral-400 hover:text-white" type="button" aria-label="Attach image"><Image className="h-4 w-4" /></button>
-					<div className="flex h-9 min-w-0 flex-1 items-center rounded-full bg-neutral-900 px-4"><input className="min-w-0 flex-1 bg-transparent text-xs text-white outline-none placeholder:text-neutral-400" type="text" placeholder="Message..." /><button className="text-neutral-400 hover:text-white" type="button" aria-label="Add emoji"><Smile className="h-4 w-4" /></button></div>
+					<div className="flex h-9 min-w-0 flex-1 items-center rounded-full bg-neutral-900 px-4">
+						<input className="min-w-0 flex-1 bg-transparent text-xs text-white outline-none placeholder:text-neutral-400" type="text" placeholder="Message..." value={messageText} onChange={(event) => setMessageText(event.target.value)} />
+						<button className="text-neutral-400 hover:text-white" type="button" aria-label="Add emoji"><Smile className="h-4 w-4" /></button>
+					</div>
 					<button className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-white text-black transition hover:scale-105 hover:bg-neutral-200 active:scale-95 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-3" type="submit" aria-label="Send message"><Send className="h-4 w-4" /></button>
 				</form>
 			</section>

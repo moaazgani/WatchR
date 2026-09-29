@@ -1,5 +1,5 @@
 import RoomHeader from '../components/RoomHeader'
-import ChatMessage from '../components/ChatMessage'
+import RoomChat from '../components/RoomChat'
 import { useEffect, useRef, useState } from 'react'
 import {
 	Check,
@@ -204,7 +204,7 @@ function Room() {
 							<p className="mt-0.5 truncate text-xs text-neutral-400">{videoName}</p>
 						</div>
 						{messages.map((chatMessage, index) => (
-							<ChatMessage chatMessage={chatMessage} key={`${chatMessage.name}-${index}`} />
+							<RoomChat chatMessage={chatMessage} key={`${chatMessage.name}-${index}`} />
 						))}
 					</div>
 					<div className="shrink-0 px-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-2.5 lg:pb-2.5">

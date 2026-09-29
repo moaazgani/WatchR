@@ -1,4 +1,4 @@
-function ChatMessage({ chatMessage }) {
+function RoomChat({ chatMessage }) {
 	return (
 		<div className={`flex gap-2 ${chatMessage.own ? 'flex-row-reverse' : ''}`}>
 			<img className="mt-0.5 h-6 w-6 shrink-0 rounded-lg border border-neutral-800 object-cover" src={`https://i.pravatar.cc/48?u=${chatMessage.name}`} alt="" />
@@ -13,4 +13,4 @@ function ChatMessage({ chatMessage }) {
 	)
 }
 
-export default ChatMessage
+export default RoomChat
