@@ -6,11 +6,28 @@ import Chat from './pages/Chat'
 import History from './pages/History'
 import Room from './pages/Room'
 import Profile from './pages/Profile'
+import Login from './pages/Login'
 import Footer from './components/Footer'
 
 function App() {
   const currentPath = window.location.pathname
   const isRoomPage = currentPath === '/room' || currentPath.startsWith('/room/')
+  const isAuthPage = currentPath === '/login' || currentPath === '/signup'
+  const isAuthenticated = sessionStorage.getItem('watchr-demo-session') === 'active'
+
+  if (!isAuthPage && !isAuthenticated) {
+    sessionStorage.setItem('watchr-redirect-after-login', `${currentPath}${window.location.search}`)
+    window.location.replace('/login')
+    return null
+  }
+
+  if (isAuthPage && isAuthenticated) {
+    window.location.replace('/')
+    return null
+  }
+
+  if (isAuthPage) return <Login />
+
   const page = isRoomPage ? <Room />
     : currentPath === '/notifications' ? <Notification />
     : currentPath === '/search' ? <Search />

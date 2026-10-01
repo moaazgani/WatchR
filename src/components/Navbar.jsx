@@ -13,7 +13,6 @@ function RLogo() {
 function Navbar() {
     const [isCreateRoomOpen, setIsCreateRoomOpen] = useState(false)
     
-
     return (
         <>
             <header className="flex h-16 w-full items-center justify-between border-b border-neutral-800 px-[22px] max-[480px]:h-[60px] max-[480px]:px-4">
