@@ -57,7 +57,7 @@ function Chat() {
 					</div>
 				</header>
 
-				<div ref={messageListRef} className="min-h-0 flex-1 space-y-5 overflow-y-auto overscroll-contain px-4 py-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:px-8 lg:px-14">
+				<div ref={messageListRef} className="min-h-0 flex-1 space-y-5 overflow-y-auto overscroll-contain px-4 py-6 [scrollbar-none] [&::-webkit-scrollbar]:hidden sm:px-8 lg:px-14">
 					<div className="flex justify-center"><span className="rounded-full bg-neutral-900 px-3 py-1 text-[9px] font-medium text-neutral-500">TODAY</span></div>
 					{messages.map((message, index) => <MessageBubble message={message} key={index} />)}
 				</div>

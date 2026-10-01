@@ -5,6 +5,7 @@ import Search from './pages/Search'
 import Chat from './pages/Chat'
 import History from './pages/History'
 import Room from './pages/Room'
+import Profile from './pages/Profile'
 import Footer from './components/Footer'
 
 function App() {
@@ -14,7 +15,8 @@ function App() {
     : currentPath === '/notifications' ? <Notification />
     : currentPath === '/search' ? <Search />
       : currentPath === '/chats' ? <Chat />
-        : currentPath === '/history' ? <History /> : <Home />
+          : currentPath === '/history' ? <History />
+            : currentPath === '/profile' ? <Profile /> : <Home />
 
   return (
     <div className="min-h-screen bg-[#050505] text-neutral-100 md:pl-18">
